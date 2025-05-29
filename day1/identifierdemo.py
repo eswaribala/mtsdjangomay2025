@@ -4,8 +4,9 @@ Author: Parameswari
 Date: 2023-10-01
 Description: This script reads employee data from a user or it will generate date using faker.
 """
-from datetime import datetime
-employeeId=input("Enter employee id: ")
+import datetime
+#type casting
+employeeId=int(input("Enter employee id: "))
 name=input("Enter employee name: ")
 emailId=input("Enter employee email: ")
 contactNumber=input("Enter employee contact number: ")
@@ -13,6 +14,16 @@ designation=input("Enter employee designation: ")
 dob_input=input("Enter employee date of birth (dd-mm-yyyy): ")
 dob=datetime.strptime(dob_input, "%d-%m-%Y").date()
 
+#type checking
+print(type(employeeId))
+print(type(name))   
+print(type(emailId))
+print(type(contactNumber))          
+print(type(designation))
+print(type(dob))    
+
+#employeeNo=int(employeeId)  # Convert employeeId to integer
+#print(type(employeeNo))
 
 #formatting the output
 print("Employee Id: ", employeeId)
