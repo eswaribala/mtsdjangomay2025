@@ -6,7 +6,9 @@ class Employee:
         self.__salary = salary
         self.__email = email
         self.__contactNo = contactNo
-
+    #def __init__(self,name):
+        #self.__name = name
+        
     def get_email(self):
         return self.__email
     def get_contact_no(self):

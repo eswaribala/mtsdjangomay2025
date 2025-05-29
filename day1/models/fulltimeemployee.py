@@ -1,7 +1,7 @@
 from models.employee import Employee
 class FullTimeEmployee(Employee):
     def __init__(self, id, name, designation, salary,email, contactNo,bonus: float):
-        super().__init__(id, name, designation, salary,email, contactNo)
+        super().__init__(name)
         self.__bonus = bonus
 
     def get_details(self):  
