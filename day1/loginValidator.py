@@ -10,3 +10,11 @@ def validate(**details):
        if(key == 'password'):         
          if(re.fullmatch(passwordPattern, value)):
               print(f"Password{value} is valid")
+
+#main function created only when you execute current file
+if __name__ == "__main__":
+    userName = input("Enter UserName: ")
+    password = input("Enter Password: ")
+    validate(userName=userName, password=password)
+    print("Validation completed")
+          
