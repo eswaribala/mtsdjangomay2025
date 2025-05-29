@@ -3,7 +3,7 @@
 #add required libraries
 #open terminal
 #create virtual environment
-python -n venv <name>
+python -m venv <name>
 #activate virtual env
 ./<envname>/Scripts/activate
 #install libraries
