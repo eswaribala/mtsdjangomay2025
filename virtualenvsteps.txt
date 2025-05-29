@@ -1,0 +1,10 @@
+#currently we are in day1 folder
+#create requirements.txt file
+#add required libraries
+#open terminal
+#create virtual environment
+python -n venv <name>
+#activate virtual env
+./<envname>/Scripts/activate
+#install libraries
+pip install -r requirements.txt
