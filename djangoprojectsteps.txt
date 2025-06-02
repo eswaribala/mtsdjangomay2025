@@ -1,0 +1,31 @@
+To create Django project
+mkdir food_api
+cd food_api
+
+python.exe -m pip install --upgrade pip 
+
+python -m venv env
+use pycharm
+ settings tools terminal
+make shell path windows cmd C:\Windows\system32\cmd.exe
+
+check activate virtualenv
+.\venv\Scripts\activate  # PowerShell or CMD
+It should show
+#(venv) PS E:\Python_Virtusa\flaskapp> 
+#mysql
+python -m pip install django djangorestframework mysqlclient
+#postgres
+python -m pip install django djangorestframework
+python -m pip install psycopg2-binary
+
+python -m pip install django-rest-swagger
+python -m pip install drf-yasg
+python -m pip install setuptools
+django-admin startproject customer_api .
+django-admin startapp customer
+
+
+#run the project
+Finally run
+python manage.py runserver
