@@ -1,0 +1,4 @@
+faker>=37.3.0
+PyPDF2>=3.0.0
+PyMuPDF>=1.23.0
+openpyxl>=3.1.0
