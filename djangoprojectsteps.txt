@@ -81,8 +81,27 @@ python -m pip install requests
 #env file
 pip install python-dotenv
 
+#create the image and containers
+#create docker file
+#create docker-compose file
+#run docker-compose
+docker-compose up
+#once containers ready
+#check tables
+docker exec -it <postgrescontainerid> psql -U <username>
+#check list of databases
+\l
+#change the database to current
+\c employeedb
+#show the tables
+\dt
+#to quit from db
+quit
+
+
 #create super user from container
-docker exec -it <accountserviceid>  python manage.py createsuperuser
+#backend is django service name in docker compose file
+docker exec -it backend python manage.py createsuperuser
 
 #kafka library
 python -m pip install confluent-kafka
