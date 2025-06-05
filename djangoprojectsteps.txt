@@ -83,6 +83,8 @@ pip install python-dotenv
 
 #create the image and containers
 #create docker file
+#create image 
+docker build -f Dockerfile -t employeeapi .
 #create docker-compose file
 #run docker-compose
 docker-compose up
