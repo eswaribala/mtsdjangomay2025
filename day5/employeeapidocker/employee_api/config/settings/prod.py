@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 """
 from spring_config.client import SpringConfigClient
@@ -138,9 +139,9 @@ WSGI_APPLICATION = 'employee_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'employeedb',
-        'USER': 'postgres',
-        'PASSWORD':'postgres',
+        'NAME': os.getenv('POSTGRES_DATABASE'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD':os.getenv('POSTGRES_PASSWORD'),
         'HOST': 'mtspostgres',
         'PORT': '5432',
     }

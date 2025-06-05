@@ -57,6 +57,9 @@ print(username)
 print(password)
 print('Access granted!')
 """
+
+
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -138,9 +141,9 @@ WSGI_APPLICATION = 'employee_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'employeedb',
-        'USER': 'postgres',
-        'PASSWORD':'postgres',
+        'NAME': os.getenv('POSTGRES_DATABASE'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD':os.getenv('POSTGRES_PASSWORD'),
         'HOST': 'mtspostgres',
         'PORT': '5432',
     }
