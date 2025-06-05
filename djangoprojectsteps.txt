@@ -122,6 +122,11 @@ kubectl apply -f deployment-v2.yaml
 #check employee logs and access api from browser
 http://localhost:8000/docs/
 
+#create super user for employee pod
+kubectl exec -it <employeedeploy-pod-name> -- bash
+#will see bash shell
+python manage.py createsuperuser
+
 
 #kafka library
 python -m pip install confluent-kafka
