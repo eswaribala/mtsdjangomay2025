@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -71,9 +72,20 @@ def employee_transactions(request,pk):
 def employee_update(request,pk):
     employee = Employee.objects.get(pk=pk)
     if request.method == 'PUT':
-        serializer = EmployeeSerializer(employee, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
-    
+        try:
+            data=json.loads(request.body)
+            employee= Employee.objects.get(pk=pk)
+            if 'phone_number' in data:
+                employee.phone_number = data['phone_number']
+            if 'email' in data:
+                employee.email = data['email']
+            if 'phone_number' not in data and 'email' not in data:
+                return Response({"error": "At least one field must be provided for update."}, status=400)
+            if 'phone_number' in data or 'email' in data:
+                employee.save(update_fields=['phone_number', 'email'])
+            return Response({"message": "Employee updated successfully."}, status=200)
+        except Employee.DoesNotExist:
+            return Response({"error": "Employee not found."}, status=404)
+        except json.JSONDecodeError:
+            return Response({"error": "Invalid JSON format."}, status=400)
+    return Response({"error": "Invalid request method."}, status=405)
