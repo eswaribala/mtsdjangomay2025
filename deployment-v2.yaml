@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: employeedeploy
+  name: employeedeploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employeedeploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: employeedeploy
+    spec:
+      containers:
+      - image: eswaribala/mtsrepojune2025:employeeapiv1
+        name: employeeapp
+        command: ['/bin/bash']          
+        args: ['-c','python3 manage.py makemigrations employee && python3 manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000']  
+        resources: {}          
+        
+        env:
+          - name: POSTGRES_DATABASE
+            value: "employeedb"
+          - name: POSTGRES_HOST
+            value: "mtspostgres"
+          - name: POSTGRES_USER
+            value: "postgres"
+          - name: POSTGRES_PORT
+            value: "5432"
+          - name: POSTGRES_PASSWORD
+            value: "postgres"
+          #- name: FRONTEND
+            #value: "frontend-service"
+      #imagePullSecrets:  
+      #- name: globalaks-key
+
+status: {}
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: employeeservice
+  name: employeeservice
+spec:
+    
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    name: http
+  
+  selector:
+    app: employeedeploy
+  type: LoadBalancer
+
