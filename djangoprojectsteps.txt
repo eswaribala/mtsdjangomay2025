@@ -105,6 +105,24 @@ quit
 #backend is django service name in docker compose file
 docker exec -it backend python manage.py createsuperuser
 
+#push docker image to dockerhub repository
+#docker hub login
+docker login
+#tag and push the image
+docker tag <imgname> <dockerhubid>/<reponame>:<imagename>
+docker push  <dockerhubid>/<reponame>:<imagename>
+
+#kubernetes deployment
+#deploy postgres volume
+kubectl apply -f postgres-pv.yaml
+#deploy postgres server
+kubectl apply -f postgres-deployment.yaml
+#deploy employee pod
+kubectl apply -f deployment-v2.yaml
+#check employee logs and access api from browser
+http://localhost:8000/docs/
+
+
 #kafka library
 python -m pip install confluent-kafka
 
