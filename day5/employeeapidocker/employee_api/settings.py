@@ -10,6 +10,53 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 
 
+
+from spring_config.client import SpringConfigClient
+from spring_config import ClientConfigurationBuilder
+import json
+
+config = (
+    ClientConfigurationBuilder()
+    .app_name("employee")  # config file
+    .address("http://localhost:8888")
+    .profile("dev")
+    .build()
+)
+
+c = SpringConfigClient(config)
+c.get_config()
+print(c.get_config())
+data = c.get_config()
+print(data['db_name'])
+
+import hvac
+import sys
+
+# # Authentication
+client = hvac.Client(
+    url='http://127.0.0.1:8200',
+    token='',
+)
+#
+# # Writing a secret
+create_response = client.secrets.kv.v2.create_or_update_secret(
+      path='postgressecretv1',
+      secret=dict(password='postgres',username='postgres'),
+ )
+
+print('Secret written successfully.')
+
+# # Reading a secret
+read_response = client.secrets.kv.read_secret_version(path='postgressecretv1')
+username = read_response['data']['data']['username']
+password = read_response['data']['data']['password']
+
+if password != 'postgres':
+    sys.exit('unexpected password')
+print(username)
+print(password)
+print('Access granted!')
+"""
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,8 +84,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+    'employee',
+    'rest_framework_swagger',
+    'drf_yasg'
 
+]
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -74,8 +137,12 @@ WSGI_APPLICATION = 'employee_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'employeedb',
+        'USER': 'postgres',
+        'PASSWORD':'postgres',
+        'HOST': 'mtspostgres',
+        'PORT': '5432',
     }
 }
 
@@ -120,4 +187,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-"""
