@@ -27,6 +27,8 @@ from rest_framework import permissions
 from django.conf.urls.static import static
 from django.conf import settings
 
+from employee.views import employee_list, employee_transactions, employee_update
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Employee API",
@@ -36,6 +38,8 @@ schema_view = get_schema_view(
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('employees/', 'employee.views.employee_list', name='employee_list'),
+    path('employees/v1.0', employee_list, name='employee-list'),    
+    path('employees/v1.0/update/<int:pk>/', employee_update, name='employee-update'),
+    path('employees/v1.0/<int:pk>/', employee_transactions, name='employee-transactions'),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui')
 ]

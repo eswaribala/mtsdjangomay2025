@@ -40,3 +40,40 @@ def employee_list(request):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+
+@api_view(['GET','DELETE'])
+def employee_transactions(request,pk):
+    employee = Employee.objects.get(pk=pk)
+    if request.method == 'GET':
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data)
+    
+    elif request.method == 'DELETE':
+        employee.delete()
+        return Response(status=204)  # No content
+
+@swagger_auto_schema(
+    methods=['put'],
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        required=['phone_number', 'email'],
+        properties={            
+            'phone_number': openapi.Schema(type=openapi.TYPE_STRING),            
+            'email': openapi.Schema(type=openapi.TYPE_STRING)                  
+
+        },
+    ),
+    operation_description='Update Employee',
+    responses={200: ""}
+)
+@api_view(['PUT'])
+def employee_update(request,pk):
+    employee = Employee.objects.get(pk=pk)
+    if request.method == 'PUT':
+        serializer = EmployeeSerializer(employee, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+    
