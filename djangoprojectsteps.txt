@@ -135,6 +135,13 @@ python -m pip install confluent-kafka
 
  python manage.py launch_queue_listener
 
+#ssl security
+#install django-sslserver
+#add sslserver in installed_apps
+#generate openssl certificates
+openssl req -x509 -newkey rsa:2048 -nodes  -keyout key.pem -out cert.pem -days 365 -subj="/CN=mylocaldev.com"
+
+
 #elastic
 add search module
 python manage.py startapp search
