@@ -1,5 +1,5 @@
 """
-URL configuration for employee_api project.
+URL configuration for leave_api project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -16,32 +16,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.contrib import admin
-from django.urls import path
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
-from django.conf.urls.static import static
-from django.conf import settings
 
-from employee.views import  employee_list, employee_transactions, employee_update, kafka_consume_view,test_api
-
+from leave.views import showconsumed_data
 schema_view = get_schema_view(
     openapi.Info(
-        title="Employee API",
+        title="Leave API",
         default_version='v1',),
     public=True,
-    permission_classes=(permissions.AllowAny,),
+    permission_classes=(permissions.AllowAny,)
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('employees/v1.0', employee_list, name='employee-list'),    
-    path('employees/v1.0/update/<int:pk>/', employee_update, name='employee-update'),
-    path('employees/v1.0/<int:pk>/', employee_transactions, name='employee-transactions'),
-    path('consume/', kafka_consume_view, name='kafka-consume'),
-    path('resilliencecall/v1.0',test_api,name="test_api"),
+    path('consume/', showconsumed_data, name='kafka-consume'),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui')
 ]

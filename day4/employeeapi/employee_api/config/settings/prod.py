@@ -87,6 +87,7 @@ INSTALLED_APPS = [
     'employee',
     'rest_framework_swagger',
     'drf_yasg'
+    
 ]
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
