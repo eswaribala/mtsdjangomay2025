@@ -146,6 +146,7 @@ openssl req -x509 -newkey rsa:2048 -nodes  -keyout key.pem -out cert.pem -days 3
 add search module
 python manage.py startapp search
 #build search index from docker container
+docker exec -it 8284d0adf9e0 /bin/bash
 python manage.py search_index --create
 or
 python manage.py search_index --rebuild
