@@ -7,6 +7,8 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from employee.models import Employee
 from employee.serializers import EmployeeSerializer
+import logging
+logger=logging.getLogger("django")
 @swagger_auto_schema(
     methods=['post'],
     request_body=openapi.Schema(
@@ -32,7 +34,9 @@ from employee.serializers import EmployeeSerializer
 # Create your views here.
 def employee_list(request):
     if request.method == 'GET':
+        logger.info("Test log")
         employees=Employee.objects.all() 
+        logger.info("object retrieved....")
         serializer = EmployeeSerializer(employees, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':

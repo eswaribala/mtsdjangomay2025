@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+from dotenv import load_dotenv
 import os
 import sys
 import os
-from dotenv import load_dotenv
+
 load_dotenv()
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', os.getenv('DJANGO_SETTINGS_MODULE', 'employee_api.config.settings.dev'))
 # Ensure the environment variable is set for Django settings module

@@ -8,3 +8,7 @@ setuptools>=65.5.0
 hvac>=0.12.0
 spring-config-client>=0.1.0
 python-dotenv>=1.0.0
+elasticsearch
+elasticsearch-dsl
+django-elasticsearch-dsl
+CMRESHandler

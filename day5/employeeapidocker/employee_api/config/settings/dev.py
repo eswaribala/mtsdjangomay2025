@@ -61,6 +61,8 @@ print('Access granted!')
 
 import os
 from pathlib import Path
+import socket
+#from cmreslogging.handlers import CMRESHandler
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -89,7 +91,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'employee',
     'rest_framework_swagger',
-    'drf_yasg'
+    'drf_yasg',
+    "django_elasticsearch_dsl",
+
 
 ]
 REST_FRAMEWORK = {
@@ -116,7 +120,45 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'employee_api.urls'
+ELASTICSEARCH_DSL = {
+    "default": {
+        "hosts": "http://host.docker.internal:9200",
+        # "http_auth": ("elastic", "YOUR_PASSWORD"),
+        # "ca_certs": "PATH_TO_http_ca.crt",
+    }
+}
+'''
+LOGGING={
+    'version':1,
+    'disable_existing_loggers':False,
+    'handlers':{
+        'elasticsearch':{
+            'level':'INFO',
+            'class':'cmreslogging.handlers.CMRESHandler',
+            'hosts':[{'host':'host.docker.internal','port':9200}],
+            #'auth_type':CMRESHandler.AuthType.NO_AUTH,
+            'es_index_name':'employee_index',
+            'es_additional_fields':{
+                'APP':'EmployeeApp',
+                'Environment':'Development',
+                'Host':socket.gethostname()
+            },
+            'console':{
+                'class':'logging.StreamHandler'
+            },
+            'loggers':{
+                'django':{
+                    'handlers':['console','elasticsearch'],
+                    'level':'INFO',
+                    'propagate':True
+                }
+            }
 
+        }
+    }
+
+}
+'''
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
